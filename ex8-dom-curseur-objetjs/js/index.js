@@ -19,15 +19,50 @@ let sectionLettresDuMot = document.querySelector('.lettres-du-mot');
 let sectionLettresDisponibles = document.querySelector('.lettres-disponibles');
 // Le bouton pour démarrer une partie
 let btnNouvellePartie = document.querySelector('.btn-nouvelle-partie');
+// Le nombre de mauvaises réponses
+let mauvaiseLettreChoisie = 0;
 
 ////////// ÉCOUTEURS D'ÉVÉNEMENTS STATIQUES ////////////////////////////////////
 // Gérer le bouton "Nouvelle partie"
 btnNouvellePartie.addEventListener('click', demarrer);
+btnNouvellePartie.addEventListener('click', enleverInstruction);
 
 // Gérer le double-clic de l'indice
 h2Indice.addEventListener('dblclick', devoilerIndice);
 
 ////////// FONCTIONS (INTERACTIVITÉ DU JEU) ////////////////////////////////////
+
+// Titre animé du quiz
+let titreIntro = document.querySelector(".anim-titre-intro");
+
+titreIntro.addEventListener("animationend", afficherConsignePourDebuterLeJeu);
+
+btnNouvellePartie.style.display = "none";
+/**
+ * Afficher les consignes pour débuter le jeu
+ * 
+ * @param {Event} event : objet AnimationEvent de l'événement distribué 
+ */
+function afficherConsignePourDebuterLeJeu(event) {
+	//console.log(event.animationName);
+	//On affiche la consigne si c'est la fin de la deuxième animation: etirer-mot
+	if (event.animationName == "etirer-mot") {
+		//On affiche un message dans le pied de page
+		let piedDePage = document.querySelector("footer");
+		piedDePage.innerHTML = "<h1>Cliquer dans sur le bouton pour commencer une partie</h1>";
+        btnNouvellePartie.style.display = "block";
+	}
+}
+
+/**
+ * Enlever les éléments de l'intro et commencer le quiz
+ * 
+ */
+function enleverInstruction() {
+	//On enlève le conteneur de l'intro
+	document.querySelector("main footer").remove();
+}
+///////////////////////////////////////////////////////////
 
 /* [À compléter : étape 2] */
 /**
@@ -171,6 +206,18 @@ function validerLettre(event) {
      */
     toucheChoisie.removeEventListener('click', validerLettre);
     toucheChoisie.classList.add('choisie-' + etatVerif);
+
+    // On vérifie si la lettre choisie était bonne ou non
+    if (etatVerif === 'echec') {
+        // On incrémente le compteur de mauvaises réponses
+        mauvaiseLettreChoisie++;
+        // On vérifie si le joueur a perdu
+        if (mauvaiseLettreChoisie === 6) {
+                // On affiche le mot caché
+                console.log('Game over');
+        }
+    }
+        
     
     // On parcourt toutes les cases du mot à deviner qui contiennent la lettre 
     // choisie ... 
@@ -195,6 +242,7 @@ function reinitialiser() {
 
     // Reconstruire le clavier des lettres
     afficherClavier();
+    btnNouvellePartie.style.display = "block";
 }
 
 /*******************************************************************************
@@ -253,12 +301,12 @@ btnNouvellePartie.addEventListener('mouseover', changerCurseurBouton);
     // du curseur, et modifier son contenu textuel en conséquence (voir la démo)
     if(event.type == 'mouseover') {
         curseur.classList.add('c-bouton');
+        curseur.innerText = "";
     }
     else {
         curseur.classList.remove('c-bouton');
         curseur.innerText = "";
     }
-    
 }
 
 

@@ -33,6 +33,7 @@ body {
     color: #221c49;
     display: flex;
     flex-direction: column;
+    background-color: #7fb0ff5e;
 }
 
 h1 {
@@ -262,11 +263,16 @@ boutons (la classe 'c-bouton' est ajoutée au curseur dynamiquement dans le
 JavaScript) : couleur de fond, ombre portée, dimension plus grande, absence du 
 point au centre, etc.  */
 .curseur.c-bouton {
-    
-
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    border: 2px solid #000000;
+    background-color: rgba(255, 111, 34, 0.802);
+    box-shadow: rgba(255, 134, 78, 0.895) 0px 0px 15px 5px;
 }
 
 .curseur.c-bouton::after {
-    
+    display: none;
 }
+
 

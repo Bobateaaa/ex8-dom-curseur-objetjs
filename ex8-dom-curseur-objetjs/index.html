@@ -17,14 +17,18 @@
 
     <!-- Intégration des styles -->
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/titre.css">
 </head>
 
 <body>
     <!-- Curseur personnalisé -->
     <div class="curseur"></div>
-    
-    <h1>PENDU / prototype</h1>
-    <h4>((( Activer le son )))</h4>
+
+    <!-- Page d'introduction -->
+    <main class="intro">
+		<div class="anim-titre-intro">Chiffres et lettres</div>
+		<footer></footer>
+	</main>
 
     <!-- Scène principal du jeu -->
     <main>
@@ -42,6 +46,7 @@
         Fichiers JavaScript externes associés avec la page
         (attention l'ordre d'inclusion des fichiers est important)
     -->
+    <script src="js/titre.js"></script>
     <script src="js/banque-mots.js"></script>
     <script src="js/index.js"></script>
 </body>
